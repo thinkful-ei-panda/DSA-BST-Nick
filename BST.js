@@ -14,15 +14,15 @@ export default class BinartSearchTree {
     }
     else if (key < this.key) {
       if (!this.left) {
-        this.left = new BinartSearchTree(key, value);
+        this.left = new BinartSearchTree(key, value, this);
       }
       else {
         this.left.insert(key, value);
       }
     }
     else {
-      if (this.right) {
-        this.right = new BinartSearchTree(key, value);
+      if (!this.right) {
+        this.right = new BinartSearchTree(key, value, this);
       }
       else {
         this.right.insert(key, value);
@@ -108,5 +108,18 @@ export default class BinartSearchTree {
       return this;
     }
     return this.left._findMin();
+  }
+
+  print() {
+    if (this.left) {
+      this.left.print();
+    }
+    if (!this.parent)
+      console.log('root', this.key);
+    else
+      console.log(`node: ${this.key} parent: ${this.parent.key}`);
+    if (this.right) {
+      this.right.print();
+    }
   }
 }
